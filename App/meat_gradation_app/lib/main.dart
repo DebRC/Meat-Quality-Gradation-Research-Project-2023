@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
         // Routes for the app
         routes: {
           MainScreen.idScreen: (context) => const MainScreen(),
-          ResultScreen.idScreen: (context) => const ResultScreen(),
         },
       ),
     );
