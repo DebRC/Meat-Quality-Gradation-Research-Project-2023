@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'Brand-Bold',
-                      fontSize: width * 0.07,
+                      fontSize: width * 0.1,
                       color: const Color.fromARGB(255, 228, 29, 15)),
                 ),
                 Image(
@@ -78,48 +78,43 @@ class _MainScreenState extends State<MainScreen> {
                   height: height * (0.35),
                   width: width * (0.8),
                 ),
-                const Text(
-                  "A neural network based meat quality assesment which uses Tensorflow for grading",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 0, 73, 133),
-                      fontFamily: 'Brand',
-                      fontStyle: FontStyle.italic),
+                // ignore: prefer_const_constructors
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "A meat quality assessment app which uses Keras interface of Tensorflow to predict the quality of the meat",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 0, 73, 133),
+                        fontFamily: 'Brand',
+                        fontStyle: FontStyle.italic),
+                  ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: BigButton(
+                title: "PICK IMAGE",
+                fontColor: Colors.white,
+                backgroundColor: Color.fromARGB(255, 224, 50, 20),
 
-                // Button to continue to login page
-                BigButton(
-                    title: "PICK IMAGE",
-                    fontColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 7, 30, 136),
-
-                    // Function's getting called after pressing Get Started button
-                    onPressed: () async {
-                      File image = await pickImage();
-                      Map<String, dynamic> prediction =
-                          await PredictionMethods.meatQualityChecker(image);
-                      debugPrint(
-                          "THIS IS THE RECEIVED PREDICTION JSON $prediction");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ResultScreen(
-                                  prediction: prediction,
-                                )),
-                      );
-                    }),
-              ],
-            ),
+                // Function's getting called after pressing Get Started button
+                onPressed: () async {
+                  File image = await pickImage();
+                  Map<String, dynamic> prediction =
+                      await PredictionMethods.meatQualityChecker(image);
+                  debugPrint(
+                      "THIS IS THE RECEIVED PREDICTION JSON $prediction");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultScreen(
+                              prediction: prediction,
+                            )),
+                  );
+                }),
           )
         ]),
       ),
