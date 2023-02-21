@@ -1,4 +1,0 @@
-0 Fish
-1 Chicken
-2 Prawn
-3 Others
