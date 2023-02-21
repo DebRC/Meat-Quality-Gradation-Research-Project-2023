@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:meat_gradation_app/screens/main_screen.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
 
 var route;
 
