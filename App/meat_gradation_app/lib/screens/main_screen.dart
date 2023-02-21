@@ -118,8 +118,7 @@ class _MainScreenState extends State<MainScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ResultScreen(
-                                // phoneNo:
-                                //     "+91" + mobileTextEditingController.text,
+                                  prediction: prediction,
                                 )),
                       );
                     }),
