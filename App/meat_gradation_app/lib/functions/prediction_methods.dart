@@ -37,6 +37,7 @@ class PredictionMethods {
   // Classifies the quality of the meat
   static Future<Map<String, dynamic>> meatQualityChecker(File image) async {
     Meat meat = await meatTypeClassifier(image);
+    meat.meatImage = image;
     String res;
     if (meat.meatType == "Chicken") {
       res = (await Tflite.loadModel(
@@ -78,6 +79,28 @@ class PredictionMethods {
       meat.nonConsumableConfidence =
           1.0 - (meat.consumableConfidence as double);
     }
+    meat.remarks = meatRemarks(meat);
     return meat.toJson();
+  }
+
+  // Gives the remarks about the quality of the meat
+  static String meatRemarks(Meat meat) {
+    String remarks;
+    if (meat.consumableConfidence! >= 80) {
+      remarks =
+          "Meat is slaughtered most likely in the last 24 hours. Can be consumed within 3 days with proper refrigeration";
+    } else if (meat.nonConsumableConfidence! >= 80) {
+      remarks =
+          "Meat is slaughtered atleast 5 days back. It is not safe to consume the meat";
+    } else if (meat.nonConsumableConfidence! >= 50) {
+      remarks =
+          "Meat is slaughtered atleast 3 days back. It is not safe to consume the meat";
+    } else if (meat.consumableConfidence! >= 50) {
+      remarks =
+          "Meat is slaughtered atleast 1 days back. Can be consumed within 1 day with proper refrigeration";
+    } else {
+      remarks = "It is not safe to consume the meat";
+    }
+    return remarks;
   }
 }
