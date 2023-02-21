@@ -177,9 +177,9 @@ class _ResultScreenState extends State<ResultScreen> {
                             Flexible(
                               child: Text(
                                   "${widget.prediction["remarks"].toString()}",
-                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: false,
+                                  maxLines: 10,
                                   style: TextStyle(
                                       fontFamily: 'Brand',
                                       fontSize: width * 0.055,
