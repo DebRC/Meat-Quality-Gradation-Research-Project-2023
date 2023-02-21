@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
 
+  static const String idScreen = "resultscreen";
+
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }

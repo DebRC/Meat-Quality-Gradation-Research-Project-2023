@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meat_gradation_app/screens/main_screen.dart';
+import 'package:meat_gradation_app/screens/result_screen.dart';
 
 var route;
 
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
         // Routes for the app
         routes: {
           MainScreen.idScreen: (context) => const MainScreen(),
+          ResultScreen.idScreen: (context) => const ResultScreen(),
         },
       ),
     );
