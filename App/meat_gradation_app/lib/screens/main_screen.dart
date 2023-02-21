@@ -23,18 +23,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late File _image;
-  late List _results;
-  bool imageSelect = false;
-
   @override
   void initState() {
     super.initState();
   }
 
   Future<File> pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile = await _picker.pickImage(
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
     File image = File(pickedFile!.path);
