@@ -34,6 +34,7 @@ class _ResultScreenState extends State<ResultScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
+                Image.file(widget.prediction["meatImage"]),
                 Text(widget.prediction["meatType"].toString(),
                     style: TextStyle(
                         fontFamily: 'Brand',
