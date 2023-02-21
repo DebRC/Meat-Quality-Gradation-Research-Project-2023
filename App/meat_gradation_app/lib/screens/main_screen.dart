@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meat_gradation_app/functions/prediction_methods.dart';
+import 'package:meat_gradation_app/screens/result_screen.dart';
 import 'package:meat_gradation_app/widgets/all_buttons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,15 +112,16 @@ class _MainScreenState extends State<MainScreen> {
                       File image = await pickImage();
                       Map<String, dynamic> prediction =
                           await PredictionMethods.meatQualityChecker(image);
-                      debugPrint("THIS IS THE RECEIVED PREDICTION JSON");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => OTPScreen(
-                      //             phoneNo:
-                      //                 "+91" + mobileTextEditingController.text,
-                      //           )),
-                      // );
+                      debugPrint(
+                          "THIS IS THE RECEIVED PREDICTION JSON $prediction");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                                // phoneNo:
+                                //     "+91" + mobileTextEditingController.text,
+                                )),
+                      );
                     }),
               ],
             ),
