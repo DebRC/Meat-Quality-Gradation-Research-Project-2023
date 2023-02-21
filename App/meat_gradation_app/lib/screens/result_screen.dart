@@ -35,26 +35,35 @@ class _ResultScreenState extends State<ResultScreen> {
             child: Column(
               children: [
                 Image.file(widget.prediction["meatImage"]),
-                Text(widget.prediction["meatType"].toString(),
+                Text("Meat Type :: ${widget.prediction["meatType"].toString()}",
                     style: TextStyle(
                         fontFamily: 'Brand',
                         fontSize: width * 0.055,
                         color: const Color(0xFF818181))),
-                Text(widget.prediction["meatTypeConfidence"].toString(),
+                Text(
+                    ("Meat Type Confidence :: ${(widget.prediction["meatTypeConfidence"] * 100).toString().substring(0, 6)}%"),
                     style: TextStyle(
                         fontFamily: 'Brand',
                         fontSize: width * 0.055,
                         color: const Color(0xFF818181))),
-                Text(widget.prediction["consumableConfidence"].toString(),
+                Text(
+                    ("Consumable :: ${(widget.prediction["consumableConfidence"] * 100).toString().substring(0, 6)}%"),
                     style: TextStyle(
                         fontFamily: 'Brand',
                         fontSize: width * 0.055,
                         color: const Color(0xFF818181))),
-                Text(widget.prediction["nonConsumableConfidence"].toString(),
+                Text(
+                    ("Non-Consumable :: ${(widget.prediction["nonConsumableConfidence"] * 100).toString().substring(0, 6)}%"),
                     style: TextStyle(
                         fontFamily: 'Brand',
                         fontSize: width * 0.055,
-                        color: const Color(0xFF818181)))
+                        color: const Color(0xFF818181))),
+                Text("Remarks :: ${widget.prediction["remarks"].toString()}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Brand',
+                        fontSize: width * 0.055,
+                        color: const Color(0xFF818181))),
               ],
             ),
           )
