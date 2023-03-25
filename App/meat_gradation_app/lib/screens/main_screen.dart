@@ -1,17 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meat_gradation_app/functions/prediction_methods.dart';
+import 'package:meat_gradation_app/screens/camera_screen.dart';
 import 'package:meat_gradation_app/screens/result_screen.dart';
 import 'package:meat_gradation_app/widgets/all_buttons.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:meat_gradation_app/widgets/option_sheet.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:tflite/tflite.dart';
 
 class MainScreen extends StatefulWidget {
   // Named route
@@ -102,18 +99,43 @@ class _MainScreenState extends State<MainScreen> {
 
                 // Function's getting called after pressing Get Started button
                 onPressed: () async {
-                  File image = await pickImage();
-                  Map<String, dynamic> prediction =
-                      await PredictionMethods.meatQualityChecker(image);
-                  debugPrint(
-                      "THIS IS THE RECEIVED PREDICTION JSON $prediction");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResultScreen(
-                              prediction: prediction,
-                            )),
-                  );
+                  late File image;
+                  showModalBottomSheet(
+                      context: context,
+                      isDismissible: false,
+                      builder: (BuildContext context) => OptionSheet(
+                            heading: "Choose Image Source",
+                            leftButtonMessage: "Gallery",
+                            rightButtonMessage: "Camera",
+                            leftButtonColor: Colors.redAccent,
+                            rightButtonColor: Color.fromARGB(255, 22, 202, 226),
+                            leftButtonFunction: () async {
+                              image = await pickImage();
+                              Navigator.pop(context);
+                            },
+                            rightButtonFunction: () async {
+                              final cameras = await availableCameras();
+                              image = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CameraScreen(
+                                            cameras: cameras,
+                                          )));
+                              Navigator.pop(context);
+                            },
+                          )).then((value) async {
+                    Map<String, dynamic> prediction =
+                        await PredictionMethods.meatQualityChecker(image);
+                    debugPrint(
+                        "THIS IS THE RECEIVED PREDICTION JSON $prediction");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResultScreen(
+                                prediction: prediction,
+                              )),
+                    );
+                  });
                 }),
           )
         ]),
