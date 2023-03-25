@@ -17,12 +17,6 @@ class _CameraScreenState extends State<CameraScreen> {
   bool _isRearCameraSelected = true;
 
   @override
-  void dispose() {
-    _cameraController.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
     initCamera(widget.cameras![0]);
