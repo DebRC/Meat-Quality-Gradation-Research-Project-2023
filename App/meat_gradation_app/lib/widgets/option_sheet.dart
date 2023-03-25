@@ -53,7 +53,7 @@ class OptionSheet extends StatelessWidget {
               Expanded(
                 child: BigButton(
                     title: leftButtonMessage,
-                    fontColor: Colors.black87,
+                    fontColor: Colors.white,
                     backgroundColor: leftButtonColor,
                     onPressed: () {
                       leftButtonFunction();
