@@ -11,5 +11,5 @@ This is the final year research project of Computer Science Engineering batch of
 1. Dr. Kingshuk Chatterjee
 
 ### Screenshots
-<img src = "App/Screenshots/home.jpg" width ="200" /> <img src = "App/Screenshots/options.jpg" width ="200" /> 
-<img src = "App/Screenshots/fish_pred.jpg" width ="200" /> <img src = "App/Screenshots/chicken_pred.jpg" width ="200" /> <img src = "App/Screenshots/prawn_pred.jpg" width ="200" />
+<img src = "App/Screenshots/home.jpeg" width ="200" /> <img src = "App/Screenshots/options.jpeg" width ="200" /><br>
+<img src = "App/Screenshots/fish_pred.jpeg" width ="200" /> <img src = "App/Screenshots/chicken_pred.jpeg" width ="200" /> <img src = "App/Screenshots/prawn_pred.jpeg" width ="200" />
