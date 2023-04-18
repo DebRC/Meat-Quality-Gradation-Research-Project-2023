@@ -29,9 +29,12 @@ class Meat {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['meatImage'] = meatImage;
     data['meatType'] = meatType;
-    data['meatTypeConfidence'] = meatTypeConfidence;
-    data['consumableConfidence'] = consumableConfidence;
-    data['nonConsumableConfidence'] = nonConsumableConfidence;
+    data['meatTypeConfidence'] =
+        double.parse(meatTypeConfidence!.toStringAsFixed(4));
+    data['consumableConfidence'] =
+        double.parse(consumableConfidence!.toStringAsFixed(4));
+    data['nonConsumableConfidence'] =
+        double.parse(nonConsumableConfidence!.toStringAsFixed(4));
     data['remarks'] = remarks;
     return data;
   }
