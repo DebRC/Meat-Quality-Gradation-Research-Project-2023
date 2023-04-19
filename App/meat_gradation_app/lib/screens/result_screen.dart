@@ -26,7 +26,7 @@ class _ResultScreenState extends State<ResultScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 242, 236, 236),
+      backgroundColor: Color.fromARGB(255, 243, 225, 225),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
@@ -39,14 +39,14 @@ class _ResultScreenState extends State<ResultScreen> {
           ),
         ),
         title: const Text(
-          "Prediction Result",
+          "Result",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(218, 131, 19, 17),
           ),
         ),
-        backgroundColor: Color.fromRGBO(243, 232, 233, 1),
+        backgroundColor: Color.fromRGBO(213, 179, 183, 1),
         elevation: 0,
         centerTitle: true,
       ),
