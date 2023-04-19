@@ -85,18 +85,16 @@ class PredictionMethods {
     String remarks;
     if (meat.consumableConfidence! >= 0.8) {
       remarks =
-          "Meat is slaughtered most likely in the last 24 hours. Can be consumed within 3 days with proper refrigeration";
-    } else if (meat.nonConsumableConfidence! >= 0.8) {
+          "Meat is most likely slaughtered in the last 24 to 48 hours. It is safe consume within 2-3 days with proper refrigeration.";
+    } else if (meat.consumableConfidence! >= 0.6) {
       remarks =
-          "Meat is slaughtered atleast 5 days back. It is not safe to consume the meat";
-    } else if (meat.nonConsumableConfidence! >= 0.5) {
+          "Meat is most likely slaughtered in the last 48 to 72 hours. It is safe to consume within 24 hours.";
+    } else if (meat.consumableConfidence! >= 0.4) {
       remarks =
-          "Meat is slaughtered atleast 3 days back. It is not safe to consume the meat";
-    } else if (meat.consumableConfidence! >= 0.5) {
-      remarks =
-          "Meat is slaughtered atleast 1 days back. Can be consumed within 1 day with proper refrigeration";
+          "Meat is most likely slaughtered atleast 3 days back. It may not be safe to consume the meat.";
     } else {
-      remarks = "It is not safe to consume the meat";
+      remarks =
+          "Meat is most likely slaughtered atleast 5 days back. It is absolutely not safe to consume the meat.";
     }
     return remarks;
   }
