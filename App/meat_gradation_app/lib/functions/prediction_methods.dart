@@ -10,7 +10,7 @@ class PredictionMethods {
     res = (await Tflite.loadModel(
         model: "assets/models/meat_classifier.tflite",
         labels: "assets/models/meat_classifier_labels.txt"))!;
-    print("MODEL LOADING STATUS: $res");
+    print("MEAT TYPE MODEL LOADING STATUS: $res");
     int index = 0;
     final List? recognitions = await Tflite.runModelOnImage(
       path: image.path,
@@ -20,14 +20,14 @@ class PredictionMethods {
       imageStd: 127.5,
     );
     Tflite.close();
-    debugPrint("THIS IS THE MODEL OUTPUT :::: $recognitions");
+    debugPrint("MEAT TYPE MODEL OUTPUT :::: $recognitions");
     for (int i = 1; i < recognitions!.length; i++) {
       if (recognitions[i]['confidence'] > recognitions[index]['confidence']) {
         index = i;
       }
     }
     debugPrint(
-        "HIGHEST CONFIDENCE IN :::: ${recognitions[index]['label']} WITH ${recognitions[index]['confidence']}");
+        "MEAT TYPE HIGHEST CONFIDENCE IN :::: ${recognitions[index]['label']} WITH ${recognitions[index]['confidence']}");
     Meat meat = Meat(
         meatType: recognitions[index]['label'],
         meatTypeConfidence: recognitions[index]['confidence']);
@@ -38,7 +38,7 @@ class PredictionMethods {
   static Future<Map<String, dynamic>> meatQualityChecker(File image) async {
     Meat meat = await meatTypeClassifier(image);
     meat.meatImage = image;
-    String res;
+    String res = "";
     if (meat.meatType == "Chicken") {
       res = (await Tflite.loadModel(
           model: "assets/models/chicken_model.tflite",
@@ -55,6 +55,7 @@ class PredictionMethods {
           labels: "assets/models/prawn_model_labels.txt"))!;
       print("MODEL LOADING STATUS: $res");
     } else {}
+    print("MEAT QUALITY MODEL LOADING STATUS: ${res}");
     final List? recognitions = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 6,
@@ -62,8 +63,9 @@ class PredictionMethods {
       imageMean: 127.5,
       imageStd: 127.5,
     );
-    meat.consumableConfidence = 0;
-    meat.nonConsumableConfidence = 0;
+    debugPrint("MEAT QUALITY MODEL OUTPUT :::: $recognitions");
+    meat.consumableConfidence = 0.0;
+    meat.nonConsumableConfidence = 0.0;
     for (int i = 0; i < recognitions!.length; i++) {
       if (recognitions[i]['index'] == 1) {
         meat.nonConsumableConfidence = recognitions[i]['confidence'];
@@ -71,13 +73,8 @@ class PredictionMethods {
         meat.consumableConfidence = recognitions[i]['confidence'];
       }
     }
-    if (meat.consumableConfidence == 0) {
-      meat.consumableConfidence =
-          1.0 - (meat.nonConsumableConfidence as double);
-    }
-    if (meat.nonConsumableConfidence == 0) {
-      meat.nonConsumableConfidence =
-          1.0 - (meat.consumableConfidence as double);
+    if (meat.consumableConfidence! < (meat.nonConsumableConfidence as double)) {
+      meat.consumableConfidence = 1 - (meat.nonConsumableConfidence as double);
     }
     meat.remarks = meatRemarks(meat);
     return meat.toJson();
