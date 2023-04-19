@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 248, 244, 244),
+      backgroundColor: Color.fromARGB(255, 242, 236, 236),
       body: Padding(
         // Adding main padding for all widget
         padding: const EdgeInsets.all(8),
@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
           // Widget to hold logo and name
           Container(
             alignment: Alignment.center,
-            height: height * 0.7,
+            height: height * 0.8,
             child: Column(
               // centred columnn child
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,13 +77,14 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 // ignore: prefer_const_constructors
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: const Text(
                     "A meat quality assessment app which uses Keras interface of Tensorflow to predict the quality of the meat",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color.fromARGB(255, 0, 73, 133),
                         fontFamily: 'Brand',
+                        fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.italic),
                   ),
                 ),
@@ -105,15 +106,15 @@ class _MainScreenState extends State<MainScreen> {
                       isDismissible: false,
                       builder: (BuildContext context) => OptionSheet(
                             heading: "Choose Image Source",
-                            leftButtonMessage: "Gallery",
-                            rightButtonMessage: "Camera",
-                            leftButtonColor: Colors.redAccent,
-                            rightButtonColor: Color.fromARGB(255, 22, 202, 226),
-                            leftButtonFunction: () async {
+                            rightButtonMessage: "Gallery",
+                            leftButtonMessage: "Camera",
+                            rightButtonColor: Color.fromARGB(255, 110, 57, 57),
+                            leftButtonColor: Color.fromARGB(255, 223, 118, 118),
+                            rightButtonFunction: () async {
                               image = await pickImage();
                               Navigator.pop(context);
                             },
-                            rightButtonFunction: () async {
+                            leftButtonFunction: () async {
                               final cameras = await availableCameras();
                               image = await Navigator.push(
                                   context,
