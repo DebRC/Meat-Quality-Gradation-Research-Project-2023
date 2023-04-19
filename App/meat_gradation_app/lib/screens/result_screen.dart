@@ -64,7 +64,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       child: SizedBox.fromSize(
                         size: Size.fromRadius(width / 3), // Image radius
                         child: Image.file(widget.prediction["meatImage"],
-                            fit: BoxFit.contain),
+                            fit: BoxFit.fill),
                       ),
                     ),
                   ),
