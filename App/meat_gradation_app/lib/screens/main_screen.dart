@@ -42,104 +42,93 @@ class _MainScreenState extends State<MainScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 242, 236, 236),
-      body: Padding(
-        // Adding main padding for all widget
-        padding: const EdgeInsets.all(8),
-
-        // Inserting Widgets in Column
-        child: Column(children: [
-          // Widget to hold logo and name
-          Container(
-            alignment: Alignment.center,
-            height: height * 0.8,
-            child: Column(
-              // centred columnn child
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-
-              // children inside the column
-              children: [
-                // Tag Line of Company
-                Text(
-                  "Meat Quality Gradation",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Brand-Bold',
-                      fontSize: width * 0.1,
-                      color: const Color.fromARGB(255, 228, 29, 15)),
-                ),
-                Image(
-                  image: const AssetImage('assets/images/openLogo.png'),
-                  height: height * (0.35),
-                  width: width * (0.8),
-                ),
-                // ignore: prefer_const_constructors
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: const Text(
-                    "A meat quality assessment app which uses Keras interface of Tensorflow to predict the quality of the meat",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 0, 73, 133),
-                        fontFamily: 'Brand',
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic),
-                  ),
-                ),
-              ],
+      backgroundColor: Color.fromARGB(255, 243, 225, 225),
+      body: Container(
+        alignment: Alignment.center,
+        height: height,
+        child: Column(
+          // centred columnn child
+          mainAxisAlignment: MainAxisAlignment.center,
+          // children inside the column
+          children: [
+            // Tag Line of Company
+            Text(
+              "Meat Quality Gradation",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'Brand-Bold',
+                  fontSize: width * 0.1,
+                  color: Color.fromARGB(255, 189, 24, 12)),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: BigButton(
-                title: "PICK IMAGE",
-                fontColor: Colors.white,
-                backgroundColor: Color.fromARGB(255, 224, 50, 20),
-
-                // Function's getting called after pressing Get Started button
-                onPressed: () async {
-                  late File image;
-                  showModalBottomSheet(
-                      context: context,
-                      isDismissible: false,
-                      builder: (BuildContext context) => OptionSheet(
-                            heading: "Choose Image Source",
-                            rightButtonMessage: "Gallery",
-                            leftButtonMessage: "Camera",
-                            rightButtonColor: Color.fromARGB(255, 110, 57, 57),
-                            leftButtonColor: Color.fromARGB(255, 223, 118, 118),
-                            rightButtonFunction: () async {
-                              image = await pickImage();
-                              Navigator.pop(context);
-                            },
-                            leftButtonFunction: () async {
-                              final cameras = await availableCameras();
-                              image = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CameraScreen(
-                                            cameras: cameras,
-                                          )));
-                              Navigator.pop(context);
-                            },
-                          )).then((value) async {
-                    Map<String, dynamic> prediction =
-                        await PredictionMethods.meatQualityChecker(image);
-                    debugPrint(
-                        "THIS IS THE RECEIVED PREDICTION JSON $prediction");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ResultScreen(
-                                prediction: prediction,
-                              )),
-                    );
-                  });
-                }),
-          )
-        ]),
+            Image(
+              image: const AssetImage('assets/images/openLogo.png'),
+              height: height * (0.35),
+              width: width * (0.8),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+              child: Text(
+                "A meat quality assessment app which uses Keras interface of Tensorflow to predict the quality of the meat.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 130, 19, 16),
+                    fontFamily: 'Brand',
+                    fontSize: width * 0.035,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+              child: BigButton(
+                  title: "PICK IMAGE",
+                  fontColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 189, 24, 12),
+                  // Function's getting called after pressing Get Started button
+                  onPressed: () async {
+                    late File image;
+                    showModalBottomSheet(
+                        context: context,
+                        isDismissible: false,
+                        builder: (BuildContext context) => OptionSheet(
+                              heading: "Choose Image Source",
+                              rightButtonMessage: "Gallery",
+                              leftButtonMessage: "Camera",
+                              rightButtonColor:
+                                  Color.fromARGB(255, 110, 57, 57),
+                              leftButtonColor: Colors.redAccent,
+                              rightButtonFunction: () async {
+                                image = await pickImage();
+                                Navigator.pop(context);
+                              },
+                              leftButtonFunction: () async {
+                                final cameras = await availableCameras();
+                                image = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CameraScreen(
+                                              cameras: cameras,
+                                            )));
+                                Navigator.pop(context);
+                              },
+                            )).then((value) async {
+                      Map<String, dynamic> prediction =
+                          await PredictionMethods.meatQualityChecker(image);
+                      debugPrint(
+                          "THIS IS THE RECEIVED PREDICTION JSON $prediction");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                                  prediction: prediction,
+                                )),
+                      );
+                    });
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }
