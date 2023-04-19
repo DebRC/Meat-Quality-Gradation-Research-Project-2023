@@ -8,7 +8,7 @@ import 'package:meat_gradation_app/screens/result_screen.dart';
 import 'package:meat_gradation_app/widgets/all_buttons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tflite/tflite.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -26,6 +26,7 @@ class _ResultScreenState extends State<ResultScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 242, 236, 236),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
@@ -63,7 +64,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       child: SizedBox.fromSize(
                         size: Size.fromRadius(width / 3), // Image radius
                         child: Image.file(widget.prediction["meatImage"],
-                            fit: BoxFit.cover),
+                            fit: BoxFit.contain),
                       ),
                     ),
                   ),
@@ -72,128 +73,124 @@ class _ResultScreenState extends State<ResultScreen> {
                     child: Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Meat Type :: ",
-                                style: TextStyle(
-                                    fontFamily: 'Brand',
-                                    fontSize: width * 0.055,
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            Flexible(
-                              child: Text(
-                                  widget.prediction["meatType"].toString(),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(bottom: 15, right: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 69, 36, 36),
+                                      width: 4.0,
+                                      style: BorderStyle.solid)),
+                              child: CircularPercentIndicator(
+                                radius: 60.0,
+                                lineWidth: 15.0,
+                                animation: true,
+                                percent:
+                                    widget.prediction["meatTypeConfidence"] /
+                                        100,
+                                center: Text(
+                                  textAlign: TextAlign.center,
+                                  "${widget.prediction["meatType"].toString() + "\n" + (widget.prediction["meatTypeConfidence"]).toString()}%",
                                   style: TextStyle(
-                                      fontFamily: 'Brand',
-                                      fontSize: width * 0.055,
-                                      color:
-                                          Color.fromARGB(255, 138, 136, 136))),
-                            )
+                                      color: Color.fromARGB(255, 93, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                                header: Text(
+                                  "Meat Type",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 93, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: width * 0.055),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: Color.fromARGB(255, 84, 171, 33),
+                                backgroundColor:
+                                    Color.fromARGB(255, 223, 122, 116),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(bottom: 15, left: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 69, 36, 36),
+                                      width: 4.0,
+                                      style: BorderStyle.solid)),
+                              child: CircularPercentIndicator(
+                                radius: 60.0,
+                                lineWidth: 15.0,
+                                animation: true,
+                                percent:
+                                    widget.prediction["consumableConfidence"] /
+                                        100,
+                                center: Text(
+                                  "${(widget.prediction["consumableConfidence"]).toString()}%",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 93, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                                header: Text(
+                                  "Consumable",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 93, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: width * 0.055),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: Color.fromARGB(255, 84, 171, 33),
+                                backgroundColor:
+                                    Color.fromARGB(255, 223, 122, 116),
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text("Meat Type Confidence :: ",
-                                style: TextStyle(
-                                    fontFamily: 'Brand',
-                                    fontSize: width * 0.055,
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            Flexible(
-                              child: Text(
-                                  "${(widget.prediction["meatTypeConfidence"] * 100).toString().substring(0, 6)}%",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 69, 36, 36),
+                                  width: 4.0,
+                                  style: BorderStyle.solid)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Remarks",
                                   style: TextStyle(
-                                      fontFamily: 'Brand',
-                                      fontSize: width * 0.055,
-                                      color:
-                                          Color.fromARGB(255, 138, 136, 136))),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text("Consumable :: ",
-                                style: TextStyle(
-                                    fontFamily: 'Brand',
-                                    fontSize: width * 0.055,
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            Flexible(
-                              child: Text(
-                                  "${(widget.prediction["consumableConfidence"] * 100).toString().substring(0, 6)}%",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
-                                  style: TextStyle(
-                                      fontFamily: 'Brand',
-                                      fontSize: width * 0.055,
-                                      color:
-                                          Color.fromARGB(255, 138, 136, 136))),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text("Non-Consumable :: ",
-                                style: TextStyle(
-                                    fontFamily: 'Brand',
-                                    fontSize: width * 0.055,
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            Flexible(
-                              child: Text(
-                                  "${(widget.prediction["nonConsumableConfidence"] * 100).toString().substring(0, 6)}%",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
-                                  style: TextStyle(
-                                      fontFamily: 'Brand',
-                                      fontSize: width * 0.055,
-                                      color:
-                                          Color.fromARGB(255, 138, 136, 136))),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text("Remarks :: ",
-                                style: TextStyle(
-                                    fontFamily: 'Brand',
-                                    fontSize: width * 0.055,
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            Flexible(
-                              child: Text(
-                                  "${widget.prediction["remarks"].toString()}",
+                                      decoration: TextDecoration.underline,
+                                      color: Color.fromARGB(255, 93, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: width * 0.055)),
+                              Text("${widget.prediction["remarks"].toString()}",
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: false,
                                   maxLines: 10,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontFamily: 'Brand',
                                       fontSize: width * 0.055,
                                       color:
-                                          Color.fromARGB(255, 138, 136, 136))),
-                            )
-                          ],
+                                          Color.fromARGB(255, 157, 134, 134)))
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 50),
+                        horizontal: 50, vertical: 20),
                     child: BigButton(
                         title: "GRADE ANOTHER",
                         fontColor: Colors.white,
