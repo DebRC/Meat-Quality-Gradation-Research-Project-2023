@@ -30,11 +30,11 @@ class Meat {
     data['meatImage'] = meatImage;
     data['meatType'] = meatType;
     data['meatTypeConfidence'] =
-        double.parse(meatTypeConfidence!.toStringAsFixed(4));
+        double.parse((meatTypeConfidence! * 100).toStringAsFixed(2));
     data['consumableConfidence'] =
-        double.parse(consumableConfidence!.toStringAsFixed(4));
+        double.parse((consumableConfidence! * 100).toStringAsFixed(2));
     data['nonConsumableConfidence'] =
-        double.parse(nonConsumableConfidence!.toStringAsFixed(4));
+        double.parse((nonConsumableConfidence! * 100).toStringAsFixed(2));
     data['remarks'] = remarks;
     return data;
   }
